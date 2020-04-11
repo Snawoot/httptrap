@@ -173,7 +173,7 @@ Let's add few lines to our nginx config so it'll be looking like this:
 
 Namely, we've enabled error interception from backend responses and added named internal location which redispatches request to httptrap server. `error_page 454 = @trap` directive binds this internal location to HTTP response code 454. Now it is sufficient for backend to respond with HTTP code 454 and client will be dumped to endless response backend.
 
-It's up to backend server how to identify malicious clients which should be locked out. It's possible to use complex behavior analysis or per-IP statistics - everything what fits your case. In our example in our test web application we use simple stateless logic: 1% of requests which failed authorization responded with HTTP 454 error code and consequently redispatched to slow stream server. This way bruteforcers eventually will hit httptrap server. Let's see what impact such policy has on attacker:
+It's up to backend server how to identify malicious clients which should be locked out. It's possible to use complex behavior analysis or per-IP statistics - everything what fits your case. In our example web application uses simple stateless logic: 1% of requests which failed authorization responded with HTTP 454 error code and consequently redispatched to slow stream server. This way bruteforcers eventually will hit httptrap server. Let's see what impact such policy has on attacker:
 
 ```
 $ time ab -c 50 -t 30 -s 5 -r -p post_data_bad.txt http://localhost/
