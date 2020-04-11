@@ -45,7 +45,7 @@ func parse_args() *CLIArgs {
     flag.StringVar(&args.cert, "cert", "", "enable HTTPS and use certificate")
     flag.StringVar(&args.key, "key", "", "key for TLS certificate")
     flag.StringVar(&args.contentType, "ct", "text/html", "Content-Type value for responses")
-    flag.StringVar(&content, "string", "0a", "hex-encoded string repeated in responses")
+    flag.StringVar(&content, "string", "0a", "hex-encoded representation of byte string repeated in responses")
     flag.Parse()
     args.content, err = hex.DecodeString(content)
     if err != nil {

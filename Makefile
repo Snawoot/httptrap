@@ -1,4 +1,4 @@
-PROGNAME = udpierce
+PROGNAME = httptrap
 OUTSUFFIX = bin/$(PROGNAME)
 BUILDOPTS = -a -tags netgo
 LDFLAGS = -ldflags '-s -w -extldflags "-static"'
