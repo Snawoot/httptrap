@@ -5,6 +5,8 @@ import (
     "crypto/x509"
     "io/ioutil"
     "errors"
+    "net"
+    "net/http"
 )
 
 func makeServerTLSConfig(certfile, keyfile, cafile string) (*tls.Config, error) {
@@ -27,4 +29,20 @@ func makeServerTLSConfig(certfile, keyfile, cafile string) (*tls.Config, error) 
         cfg.ClientAuth = tls.VerifyClientCertIfGiven
     }
     return &cfg, nil
+}
+
+func getRealIP(req *http.Request) string {
+    ip := req.Header.Get("X-Real-IP")
+    if ip == "" {
+        ip, _, _ = net.SplitHostPort(req.RemoteAddr)
+    }
+    return ip
+}
+
+func getContentType(req *http.Request, default_type string) string {
+    ct := req.Header.Get("X-HTTPTRAP-CT")
+    if ct == "" {
+        ct = default_type
+    }
+    return ct
 }

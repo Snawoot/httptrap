@@ -31,12 +31,10 @@ func NewSlowResponder(interval time.Duration,
 }
 
 func (s *SlowResponder) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
-    s.logger.Info("Client %s connected", req.RemoteAddr)
-    defer s.logger.Info("Client %s disconnected", req.RemoteAddr)
-    resp_ct := req.Header.Get("X-HTTPTRAP-CT")
-    if resp_ct == "" {
-        resp_ct = s.contentType
-    }
+    ip := getRealIP(req)
+    s.logger.Info("Client %s connected", ip)
+    defer s.logger.Info("Client %s disconnected", ip)
+    resp_ct := getContentType(req, s.contentType)
     wr.Header().Set("Content-Type", resp_ct)
     wr.WriteHeader(http.StatusOK)
     flusher, flusherOk := wr.(http.Flusher)
@@ -80,12 +78,10 @@ func NewFastResponder(content []byte,
 }
 
 func (s *FastResponder) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
-    s.logger.Info("Client %s connected", req.RemoteAddr)
-    defer s.logger.Info("Client %s disconnected", req.RemoteAddr)
-    resp_ct := req.Header.Get("X-HTTPTRAP-CT")
-    if resp_ct == "" {
-        resp_ct = s.contentType
-    }
+    ip := getRealIP(req)
+    resp_ct := getContentType(req, s.contentType)
+    s.logger.Info("Client %s connected", ip)
+    defer s.logger.Info("Client %s disconnected", ip)
     wr.Header().Set("Content-Type", resp_ct)
     wr.WriteHeader(http.StatusOK)
     for {
@@ -95,4 +91,3 @@ func (s *FastResponder) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
         }
     }
 }
-
