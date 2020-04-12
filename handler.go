@@ -33,7 +33,11 @@ func NewSlowResponder(interval time.Duration,
 func (s *SlowResponder) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
     s.logger.Info("Client %s connected", req.RemoteAddr)
     defer s.logger.Info("Client %s disconnected", req.RemoteAddr)
-    wr.Header().Set("Content-Type", s.contentType)
+    resp_ct := req.Header.Get("X-HTTPTRAP-CT")
+    if resp_ct == "" {
+        resp_ct = s.contentType
+    }
+    wr.Header().Set("Content-Type", resp_ct)
     wr.WriteHeader(http.StatusOK)
     flusher, flusherOk := wr.(http.Flusher)
     ctx := req.Context()
@@ -78,7 +82,11 @@ func NewFastResponder(content []byte,
 func (s *FastResponder) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
     s.logger.Info("Client %s connected", req.RemoteAddr)
     defer s.logger.Info("Client %s disconnected", req.RemoteAddr)
-    wr.Header().Set("Content-Type", s.contentType)
+    resp_ct := req.Header.Get("X-HTTPTRAP-CT")
+    if resp_ct == "" {
+        resp_ct = s.contentType
+    }
+    wr.Header().Set("Content-Type", resp_ct)
     wr.WriteHeader(http.StatusOK)
     for {
         _, err := wr.Write(s.content)
