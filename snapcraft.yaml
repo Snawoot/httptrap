@@ -1,0 +1,22 @@
+name: httptrap
+version: '1.1.0'
+summary: Web-server which slows down malicious clients
+description: >
+  Web-server which produces infinite chunked-encoded responses to slowdown
+  malicious clients
+
+confinement: strict
+base: core18
+
+parts:
+  httptrap:
+    plugin: go
+    go-importpath: github.com/Snawoot/httptrap
+    source: .
+
+apps:
+  httptrap:
+    command: bin/httptrap
+    plugs:
+      - network
+      - network-bind
