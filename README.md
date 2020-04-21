@@ -1,6 +1,8 @@
 httptrap
 ========
 
+[![httptrap](https://snapcraft.io//httptrap/badge.svg)](https://snapcraft.io/httptrap)
+
 Web-server which produces infinite chunked-encoded responses. It's intended to be a part of active defense against malicious HTTP clients to cancel their load impact and/or bruteforce efforts. Depending on settings, httptrap may keep busy most of attacker's resources, diverting them to wait slowly fed infinite response, or cause often OOM and botnet payload crash if httptrap sends response as fast as possible and client uses RAM to buffer entire response.
 
 ## Why?
@@ -14,12 +16,24 @@ Filtering approach has some drawbacks:
 
 ## Installation
 
+#### Pre-built binaries
+
 Pre-built binaries available on [releases](https://github.com/Snawoot/httptrap/releases/latest) page.
+
+#### From source
 
 Alternatively, you may install httptrap from source:
 
 ```
 go get github.com/Snawoot/httptrap
+```
+
+#### From Snap Store
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/httptrap)
+
+```sh
+sudo snap install httptrap
 ```
 
 ## Use Case
