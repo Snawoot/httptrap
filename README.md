@@ -5,6 +5,19 @@ httptrap
 
 Web-server which produces infinite chunked-encoded responses. It's intended to be a part of active defense against malicious HTTP clients to cancel their load impact and/or bruteforce efforts. Depending on settings, httptrap may keep busy most of attacker's resources, diverting them to wait slowly fed infinite response, or cause often OOM and botnet payload crash if httptrap sends response as fast as possible and client uses RAM to buffer entire response.
 
+---
+
+:heart: :heart: :heart:
+
+You can say thanks to the author by donations to these wallets:
+
+- ETH: `0xB71250010e8beC90C5f9ddF408251eBA9dD7320e`
+- BTC:
+  - Legacy: `1N89PRvG1CSsUk9sxKwBwudN6TjTPQ1N8a`
+  - Segwit: `bc1qc0hcyxc000qf0ketv4r44ld7dlgmmu73rtlntw`
+
+---
+
 ## Why?
 
 Why just not collect attackers IP addresses and ban them? Or maybe even automate this process and establish it on ongoing basis?
