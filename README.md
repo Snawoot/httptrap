@@ -49,6 +49,12 @@ go get github.com/Snawoot/httptrap
 sudo snap install httptrap
 ```
 
+#### Docker
+
+```sh
+docker run -it --rm -p 8008:8008 yarmak/httptrap
+```
+
 ## Use Case
 
 Consider following example. We have some web application which suffers from HTTP request flood or authorization bruteforce attempts. In this example such application represented by Python script [demo/webapp.py](demo/webapp.py). It serves HTTP requests on port 8080 and it is exposed to the outer world via nginx reverse proxy with simple server configuration section like this one:
